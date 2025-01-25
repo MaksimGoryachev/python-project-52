@@ -1,5 +1,5 @@
 install:
-	curl -LsSf https://astral.sh/uv/install.sh | sh
+	uv sync
 
 dev:
 	uv run python manage.py runserver
