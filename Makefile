@@ -1,8 +1,11 @@
 install:
-	uv install
+	curl -LsSf https://astral.sh/uv/install.sh | sh
 
 dev:
 	uv run python manage.py runserver
+
+static:
+	uv run python manage.py collectstatic --no-input
 
 migrate:
 	uv run python manage.py makemigrations
@@ -10,7 +13,7 @@ migrate:
 
 PORT ?= 8000
 start:
-	uv run gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager:wsgi
+	uv run gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
 
 build:
 	./build.sh
@@ -36,4 +39,4 @@ selfcheck:
 
 check: selfcheck lint
 
-.PHONY: install lint1 lint selfcheck check build start dev setup fix migrate shell
+.PHONY: install lint1 lint selfcheck check build start dev setup fix migrate shell static
