@@ -1,24 +1,22 @@
 ### Tests and linter status:
 [![Actions Status](https://github.com/MaksimGoryachev/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/MaksimGoryachev/python-project-52/actions)
-
 [![Actions Status](https://github.com/MaksimGoryachev/python-project-52/actions/workflows/check.yml/badge.svg)](https://github.com/MaksimGoryachev/python-project-52/actions)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/c7645ed894fc71e6244f/maintainability)](https://codeclimate.com/github/MaksimGoryachev/python-project-52/maintainability)
 
 ---
 ## Description
 
-[Task Manager](https://python-project-52-9hb2.onrender.com) is a website that analyzes specified pages for SEO suitability.
+[Task Manager](https://python-project-52-9hb2.onrender.com) This web application is a task manager with the ability to set ratings and assign a performer for each task. 
 
-[demo GIF](images/demo_page_analyzer.gif)
+[//]: # ([demo GIF]&#40;images/demo_page_analyzer.gif&#41;)
 
 ---
 ## Instalation
 
-You must have python 3.12 and newer, poetry and postgresql installed to work properly
+You must have python 3.12 and newer, uv and postgresql installed to work properly
 
 ### Repository cloning
-Clone the repository to your computer `git clone https://github.com/MaksimGoryachev/python-project-83`
+Clone the repository to your computer `git clone https://python-project-52-9hb2.onrender.com`
 
 ### Database creation
 ```sh
