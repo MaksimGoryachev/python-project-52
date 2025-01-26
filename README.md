@@ -1,14 +1,14 @@
 ### Tests and linter status:
 [![Actions Status](https://github.com/MaksimGoryachev/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/MaksimGoryachev/python-project-52/actions)
 
-[//]: # ([![Actions Status]&#40;https://github.com/MaksimGoryachev/python-project-83/actions/workflows/check.yml/badge.svg&#41;]&#40;https://github.com/MaksimGoryachev/python-project-83/actions&#41;)
+[![Actions Status](https://github.com/MaksimGoryachev/python-project-52/actions/workflows/check.yml/badge.svg)](https://github.com/MaksimGoryachev/python-project-52/actions)
 
-[//]: # ([![Maintainability]&#40;https://api.codeclimate.com/v1/badges/7f8ca67d141d78aedc6d/maintainability&#41;]&#40;https://codeclimate.com/github/MaksimGoryachev/python-project-83/maintainability&#41;)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c7645ed894fc71e6244f/maintainability)](https://codeclimate.com/github/MaksimGoryachev/python-project-52/maintainability)
 
 ---
 ## Description
 
-[Task Manager](https://python-project-83-r9xq.onrender.com) is a website that analyzes specified pages for SEO suitability.
+[Task Manager](https://python-project-52-9hb2.onrender.com) is a website that analyzes specified pages for SEO suitability.
 
 [demo GIF](images/demo_page_analyzer.gif)
 
