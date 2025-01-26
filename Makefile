@@ -1,3 +1,5 @@
+MANAGE := uv run
+
 install:
 	uv sync
 
@@ -13,29 +15,29 @@ migrate:
 
 PORT ?= 8000
 start:
-	uv run gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
+	${MANAGE} gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
 
 build:
 	./build.sh
 
 lint1:
-	uv run flake8 task_manager
+	${MANAGE} flake8 task_manager
 
 ruff:
-	uv run ruff check task_manager
+	${MANAGE} ruff check task_manager
 
 fix:
-	uv run ruff check --fix task_manager
+	${MANAGE} ruff check --fix task_manager
 
 shell:
-	uv run python manage.py shell
+	${MANAGE} python manage.py shell
 
 lint: lint1 ruff
 
-setup: install build
+setup: build install
 
 selfcheck:
-	uv check
+	uv pip check
 
 check: selfcheck lint
 

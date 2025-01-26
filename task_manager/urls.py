@@ -22,6 +22,7 @@ from task_manager import views
 urlpatterns = [
     path('', views.get_index, name='index'),
     path('base/', views.get_base, name='base'),
-    # path('accounts/', include('django.contrib.auth.urls')),  # Included for login/logout/password reset functionality.
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # Included for login/logout/password reset functionality.
     path('admin/', admin.site.urls),
 ]
