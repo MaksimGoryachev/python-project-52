@@ -6,7 +6,7 @@
 ---
 ## Description
 
-[Task Manager](https://python-project-52-9hb2.onrender.com) This web application is a task manager with the ability to set ratings and assign a performer for each task. 
+[Task Manager](https://python-project-52-9hb2.onrender.com): this is a web application that allows you to implement the full lifecycle (CRUD) of users and their tasks.
 
 [//]: # ([demo GIF]&#40;images/demo_page_analyzer.gif&#41;)
 
