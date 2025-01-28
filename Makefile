@@ -15,7 +15,7 @@ migrate:
 
 PORT ?= 8000
 start:
-	${MANAGE} gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
+	gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
 
 build:
 	./build.sh
