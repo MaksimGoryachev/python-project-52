@@ -15,6 +15,9 @@ migrate:
 
 PORT ?= 8000
 start:
+	${MANAGE} gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
+
+render-start:
 	gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
 
 build:
@@ -46,4 +49,4 @@ trans:
 	${MANAGE} django-admin compilemessages
 
 
-.PHONY: install lint1 lint selfcheck check build start dev setup fix migrate shell static makemessages compilemessages trans
+.PHONY: install lint1 lint selfcheck check build start render-start dev setup fix migrate shell static makemessages compilemessages trans
