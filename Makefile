@@ -24,7 +24,7 @@ build:
 	./build.sh
 
 lint1:
-	${UV}flake8 task_manager
+	${UV} flake8 task_manager
 
 ruff:
 	${UV} ruff check task_manager
