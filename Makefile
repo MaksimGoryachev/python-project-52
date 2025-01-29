@@ -1,21 +1,21 @@
-MANAGE := uv run
+UV := uv run
 
 install:
 	uv sync
 
 dev:
-	uv run python manage.py runserver
+	${UV} python manage.py runserver
 
 static:
-	uv run python manage.py collectstatic --no-input
+	${UV} python manage.py collectstatic --no-input
 
 migrate:
-	uv run python manage.py makemigrations
-	uv run python manage.py migrate
+	${UV} python manage.py makemigrations
+	${UV} python manage.py migrate
 
 PORT ?= 8000
 start:
-	${MANAGE} gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
+	${UV} gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
 
 render-start:
 	gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
@@ -24,16 +24,16 @@ build:
 	./build.sh
 
 lint1:
-	${MANAGE} flake8 task_manager
+	${UV}flake8 task_manager
 
 ruff:
-	${MANAGE} ruff check task_manager
+	${UV} ruff check task_manager
 
 fix:
-	${MANAGE} ruff check --fix task_manager
+	${UV} ruff check --fix task_manager
 
 shell:
-	${MANAGE} python manage.py shell
+	${UV} python manage.py shell
 
 lint: lint1 ruff
 
@@ -45,8 +45,8 @@ selfcheck:
 check: selfcheck lint
 
 trans:
-	${MANAGE} django-admin makemessages --ignore="static" --ignore="index1.html" -l ru_RU
-	${MANAGE} django-admin compilemessages
+	${UV} django-admin makemessages --ignore="static" --ignore="index1.html" -l ru_RU
+	${UV} django-admin compilemessages
 
 
 .PHONY: install lint1 lint selfcheck check build start render-start dev setup fix migrate shell static makemessages compilemessages trans
