@@ -6,7 +6,7 @@ readme = "README.md"
 packages = [
   { include = "task_manager" },
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "dj-database-url>=2.3.0",
     "django>=5.1.5",
