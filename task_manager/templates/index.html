@@ -1,14 +1,6 @@
 {% extends "base.html" %}
-{% block content %}
-    <main class="flex-grow-1">
-        <div class="container-lg mt-3">
-            <div class="row">
-                <div class="col-12 col-md-10 col-lg-8 mx-auto border rounded-3 bg-light p-5 text-center">
-                    <h1 class="display-3">Менеджер задач</h1>
-                    <hr class="my-4">
-                    <p class="my-4">Это веб приложение, которое позволяет реализовывать полный жизненный цикл (CRUD) пользователей и их задач.</p>
-                </div>
-            </div>
-        </div>
-    </main>
-{% endblock %}
+{% load i18n %}
+<head>
+   <title>{% block title %}{% trans "Users" %}{% endblock %}</title>
+</head>
+<body>{% block content %}{% trans "Users" %}{% endblock %}</body>
