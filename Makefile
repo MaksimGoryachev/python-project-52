@@ -1,24 +1,25 @@
 UV := uv run
+UVPM:= uv run python manage.py
 
 install:
 	uv sync
 
 dev:
-	${UV} python manage.py runserver
+	${UVPM} runserver
 
 static:
-	${UV} python manage.py collectstatic --no-input
+	${UVPM} collectstatic --no-input
 
 migrate:
-	${UV} python manage.py makemigrations
-	${UV} python manage.py migrate
+	${UVPM} makemigrations
+	${UVPM} migrate
 
 PORT ?= 8000
 start:
 	${UV} gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
 
 render-start:
-	gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
+	python -m gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi:application
 
 build:
 	./build.sh
@@ -33,7 +34,7 @@ fix:
 	${UV} ruff check --fix task_manager
 
 shell:
-	${UV} python manage.py shell
+	${UVPM} shell
 
 lint: lint1 ruff
 
