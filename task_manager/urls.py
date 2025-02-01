@@ -21,7 +21,7 @@ from django.urls import include, path
 from task_manager import views
 
 urlpatterns = [
-    path('', views.get_base, name='base'),
+    path('', views.BaseView.as_view(), name='base'),
     path('labels/', include('task_manager.labels.urls')),
     path('tasks/', include('task_manager.tasks.urls')),
     path('users/', include('task_manager.users.urls')),
