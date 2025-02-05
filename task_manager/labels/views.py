@@ -1,13 +1,10 @@
-from django.http import HttpResponse
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import ListView  # CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, ListView  # DeleteView, UpdateView
 
-# from django.urls import reverse_lazy
+from .forms import LabelForm
 from .models import Labels
-
-
-def index(request):
-    return HttpResponse('labels')
 
 
 class LabelListView(ListView):
@@ -16,7 +13,16 @@ class LabelListView(ListView):
     context_object_name = 'labels'
     paginate_by = 15
     ordering = ['-create_at']
-    queryset = Labels.objects.all()
-    verbose_name = _('Label')
-    verbose_name_plural = _('Labels')
     extra_context = {'title': _('Labels')}
+
+
+class LabelCreateView(SuccessMessageMixin, CreateView):
+    template_name = 'forms.html'
+    model = Labels
+    form_class = LabelForm
+    success_url = reverse_lazy('labels')
+    success_message = _('Label successfully created')
+    extra_context = {
+        'title': _('Create label'),
+        'button_text': _('Create'),
+    }

@@ -6,8 +6,6 @@ from .models import Labels
 
 class LabelForm(forms.ModelForm):
 
-    name = forms.CharField(max_length=150, required=True, label=_('Name'))
-
     class Meta:
         model = Labels
         fields = ('name',)
@@ -17,6 +15,9 @@ class LabelForm(forms.ModelForm):
                 'placeholder': _('Name'),
                 'autofocus': 'true'
             }),
+        }
+        labels = {
+            'name': _('Name'),
         }
         error_messages = {
             'name': {
