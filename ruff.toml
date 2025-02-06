@@ -5,6 +5,7 @@ line-length = 80
 "__init__.py" = ["F401"]
   # Исключаем директорию migrations и файл settings.py
 "*migrations/*" = ["E", "F", "I", "C90", "E501"]
+"*urls.py" = ["E501"]
 "settings.py" = ["E", "F", "I", "C90"]
 
 [lint]
