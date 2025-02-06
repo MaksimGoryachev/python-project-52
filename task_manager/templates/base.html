@@ -19,13 +19,29 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">{% trans "Users" %}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">{% trans "Enter" %}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">{% trans "Register" %}</a></li>
+                        {% if users.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% urs 'statuses' %}">{% trans "Statuses" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% urs 'labels' %}">{% trans "Labels" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% urs 'tasks' %}">{% trans "Tasks" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% urs 'logout' %}">{% trans "Log out" %}</a></li>
+
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">{% trans "Enter" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'user_create' %}">{% trans "Sign up" %}</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.level_tag }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endif %}
 
     <div class="container flex-grow-1">
         {% block content %}
