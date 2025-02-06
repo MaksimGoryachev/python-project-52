@@ -1,8 +1,9 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView  # DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, ListView
 
+# ,UpdateView
 from .forms import LabelForm
 from .models import Labels
 
@@ -25,4 +26,19 @@ class LabelCreateView(SuccessMessageMixin, CreateView):
     extra_context = {
         'title': _('Create label'),
         'button_text': _('Create'),
+    }
+
+
+class LabelDeleteView(SuccessMessageMixin, DeleteView):
+
+    template_name = 'labels/delete.html'
+    model = Labels
+    success_url = reverse_lazy('labels')
+    success_message = _('Label successfully deleted')
+    protected_message = _('It is not possible to delete a label '
+                          'because it is in use')
+    protected_url = reverse_lazy('labels')
+    extra_context = {
+        'title': _('Delete label'),
+        'name': _(model.name),
     }
