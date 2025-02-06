@@ -20,11 +20,11 @@
 
         <tbody>
             {% if labels %}
-                {% for label in labels %}
+                {% for _ in labels %}
                     <tr>
-                        <td>{{ label.id }}</td>
-                        <td>{{ label.name }}</td>
-                        <td>{{ label.date_created|date:"d.m.Y H:i" }}</td>
+                        <td>{{ _.id }}</td>
+                        <td>{{ _.name }}</td>
+                        <td>{{ _.date_created|date:"d.m.Y H:i" }}</td>
                         <td>
                           <a href="#">{% trans 'Update' %}</a>
                           <br>
