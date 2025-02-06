@@ -22,12 +22,15 @@ from task_manager import views
 
 urlpatterns = [
     path('', views.BaseView.as_view(), name='base'),
+    path('index/', views.get_index, name='index'),
+
     path('labels/', include('task_manager.labels.urls')),
     path('tasks/', include('task_manager.tasks.urls')),
     path('users/', include('task_manager.users.urls')),
     path('statuses/', include('task_manager.statuses.urls')),
-    path('index/', views.get_index, name='index'),
-    # path('accounts/', include('django.contrib.auth.urls')),
-    # Included for login/logout/password reset functionality.
+
+    path('logout/', views.UserLogoutView.as_view(), name='logout'),
+    path('login/', views.UserLoginView.as_view(), name='login'),
+
     path('admin/', admin.site.urls),
 ]
