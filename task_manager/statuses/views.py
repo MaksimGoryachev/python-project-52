@@ -9,7 +9,7 @@ from .models import Status
 
 class StatusListView(SuccessMessageMixin, ListView):
     model = Status
-    template_name = 'statuses/status.html'
+    template_name = 'statuses/statuses.html'
     context_object_name = 'statuses'
     paginate_by = 15
     ordering = ['-created_at']

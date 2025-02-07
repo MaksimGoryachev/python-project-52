@@ -8,9 +8,9 @@ from .forms import LabelForm
 from .models import Labels
 
 
-class LabelListView(ListView):
+class LabelListView(SuccessMessageMixin, ListView):
     model = Labels
-    template_name = 'labels/list_labels.html'
+    template_name = 'labels/labels.html'
     context_object_name = 'labels'
     paginate_by = 15
     ordering = ['-create_at']

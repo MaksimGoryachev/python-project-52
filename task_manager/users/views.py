@@ -1,17 +1,20 @@
-# from django.shortcuts import render
 # from django.contrib.auth.views import UserCreationView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-from django.views.generic import CreateView  # ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView  # UpdateView, DeleteView
 
 from .forms import MyUserCreationForm
 from .models import User
 
 
-def index(request):
-    return HttpResponse('users')
+class UserListView(SuccessMessageMixin, ListView):
+    model = User
+    template_name = 'users/users.html'
+    context_object_name = 'users'
+    paginate_by = 15
+    ordering = ['-create_at']
+    extra_context = {'title': _('Users')}
 
 
 class UserCreateView(CreateView, SuccessMessageMixin):

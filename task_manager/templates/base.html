@@ -1,6 +1,7 @@
-<! DOCTYPE html>
-{% load i18n %}
+<!DOCTYPE html>
 <html lang="ru-RU">
+{% load i18n %}
+{% load bootstrap5 %}
 
 <head>
     <meta charset="UTF-8">
@@ -18,12 +19,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">{% trans "Users" %}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'users' %}">{% trans "Users" %}</a></li>
                         {% if users.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% urs 'statuses' %}">{% trans "Statuses" %}</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% urs 'labels' %}">{% trans "Labels" %}</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% urs 'tasks' %}">{% trans "Tasks" %}</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% urs 'logout' %}">{% trans "Log out" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'statuses' %}">{% trans "Statuses" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'labels' %}">{% trans "Labels" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'tasks' %}">{% trans "Tasks" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">{% trans "Log out" %}</a></li>
 
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">{% trans "Enter" %}</a></li>

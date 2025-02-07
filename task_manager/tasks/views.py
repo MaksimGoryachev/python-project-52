@@ -9,7 +9,7 @@ from .models import Task
 
 class TaskListView(SuccessMessageMixin, ListView):
     model = Task
-    template_name = 'tasks/task.html'
+    template_name = 'tasks/tasks.html'
     context_object_name = 'tasks'
     paginate_by = 15
     ordering = ['-created_at']
