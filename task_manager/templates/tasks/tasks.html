@@ -13,6 +13,9 @@
             <tr>
                 <th>ID</th>
                 <th>{% trans 'Name' %}</th>
+                <th>{% trans 'Status' %}</th>
+                <th>{% trans 'Author' %}</th>
+                <th>{% trans 'Executor' %}</th>
                 <th>{% trans 'Creation date' %}</th>
                 <th></th>
             </tr>
@@ -20,11 +23,14 @@
 
         <tbody>
             {% if tasks %}
-                {% for _ in tasks %}
+                {% for task in tasks %}
                     <tr>
-                        <td>{{ _.id }}</td>
-                        <td>{{ _.name }}</td>
-                        <td>{{ _.date_created|date:"d.m.Y H:i" }}</td>
+                        <td>{{ task.id }}</td>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.status }}</td>
+                        <td>{{ task.author }}</td>
+                        <td>{{ task.executor }}</td>
+                        <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
                         <td>
                           <a href="#">{% trans 'Update' %}</a>
                           <br>

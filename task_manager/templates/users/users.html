@@ -2,7 +2,6 @@
 
 {% load i18n %}
 
-{% block title %}{{ page_title }} | {% trans 'Task Manager' %}{% endblock %}
 
 {% block content %}
     <h1 class="my-4">{{ title }}</h1>
@@ -24,12 +23,12 @@
                     <tr>
                         <td>{{ user.id }}</td>
                         <td>{{ user.username }}</td>
-                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td>{{ user.get_full_name }}</td>
                         <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
                         <td>
-                          <a href="{% url 'user_update' user.id %}">{% trans 'Update' %}</a>
+                          <a href="#">{% trans 'Update' %}</a>
                           <br>
-                          <a href="{% url 'user_delete' user.id %}">{% trans 'Delete' %}</a>
+                          <a href="#">{% trans 'Delete' %}</a>
                         </td>
                     </tr>
                 {% endfor %}

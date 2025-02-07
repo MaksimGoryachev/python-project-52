@@ -20,11 +20,11 @@
 
         <tbody>
             {% if statuses %}
-                {% for _ in statuses %}
+                {% for status in statuses %}
                     <tr>
-                        <td>{{ _.id }}</td>
-                        <td>{{ _.name }}</td>
-                        <td>{{ _.date_created|date:"d.m.Y H:i" }}</td>
+                        <td>{{ status.id }}</td>
+                        <td>{{ status.name }}</td>
+                        <td>{{ status.create_at|date:"d.m.Y H:i" }}</td>
                         <td>
                           <a href="#">{% trans 'Update' %}</a>
                           <br>
