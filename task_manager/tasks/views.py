@@ -17,16 +17,16 @@ class TaskListView(SuccessMessageMixin, ListView):
 
 
 class TaskCreateView(SuccessMessageMixin, CreateView):
+    template_name = 'forms.html'
     model = Task
+    form_class = TaskForm
     success_url = reverse_lazy('tasks')
     success_message = _('Task created successfully.')
-    form_class = TaskForm
-    template_name = 'forms.html'
     extra_context = {
         'title': _('Create task'),
         'button_text': _('Create'),
     }
 
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     form.instance.created_by = self.request.user
+    #     return super().form_valid(form)
