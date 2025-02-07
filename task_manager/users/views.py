@@ -13,7 +13,7 @@ class UserListView(SuccessMessageMixin, ListView):
     template_name = 'users/users.html'
     context_object_name = 'users'
     paginate_by = 15
-    ordering = ['-create_at']
+    ordering = ['-date_joined']
     extra_context = {'title': _('Users')}
 
 

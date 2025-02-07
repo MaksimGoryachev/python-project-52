@@ -12,7 +12,7 @@ class StatusListView(SuccessMessageMixin, ListView):
     template_name = 'statuses/statuses.html'
     context_object_name = 'statuses'
     paginate_by = 15
-    ordering = ['-created_at']
+    ordering = ['-create_at']
     extra_context = {'title': _('Statuses')}
 
 
