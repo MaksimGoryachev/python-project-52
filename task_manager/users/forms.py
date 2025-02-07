@@ -32,7 +32,8 @@ class MyUserCreationForm(UserCreationForm):
         }
         widgets = {
             'username': forms.TextInput(attrs={
-                'placeholder': _('Username')
+                'placeholder': _('Username'),
+                'autofocus': 'true',
             }),
             'first_name': forms.TextInput(attrs={
                 'placeholder': _('First name')
