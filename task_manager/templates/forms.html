@@ -1,28 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load bootstrap5 %}
+{% load django_bootstrap5 %}
 
 
 {% block content %}
-    {% if form.errors %}
-        <div class="alert alert-danger">
-            <ul>
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+
     <h1 class="my-4">{{ title }}</h1>
 
     <form method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
-        {% bootstrap_button button_type="submit" button_text=button_text button_class="btn btn-primary" %}
+        {% bootstrap_button button_text button_type="submit" button_class="btn btn-primary" %}
     </form>
 {% endblock %}
