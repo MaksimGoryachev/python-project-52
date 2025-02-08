@@ -1,14 +1,14 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, ListView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 # ,UpdateView
 from .forms import LabelForm
 from .models import Labels
 
 
-class LabelListView(SuccessMessageMixin, ListView):
+class LabelListView(ListView):
     model = Labels
     template_name = 'labels/labels.html'
     context_object_name = 'labels'
@@ -29,9 +29,21 @@ class LabelCreateView(SuccessMessageMixin, CreateView):
     }
 
 
+class LabelUpdateView(SuccessMessageMixin, UpdateView):
+    template_name = 'forms.html'
+    model = Labels
+    form_class = LabelForm
+    success_url = reverse_lazy('labels')
+    success_message = _('Label successfully updated')
+    extra_context = {
+        'title': _('Update label'),
+        'button_text': _('Update'),
+    }
+
+
 class LabelDeleteView(SuccessMessageMixin, DeleteView):
 
-    template_name = 'labels/delete.html'
+    template_name = 'delete.html'
     model = Labels
     success_url = reverse_lazy('labels')
     success_message = _('Label successfully deleted')
@@ -40,5 +52,10 @@ class LabelDeleteView(SuccessMessageMixin, DeleteView):
     protected_url = reverse_lazy('labels')
     extra_context = {
         'title': _('Delete label'),
-        'name': _(model.name),
+        'button_text': _('Yes, delete'),
     }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['name'] = self.object.name
+        return context
