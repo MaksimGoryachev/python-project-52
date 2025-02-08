@@ -1,14 +1,17 @@
 {% extends "base.html" %}
-
-{% load bootstrap5 %}
 {% load i18n %}
-
+{% load django_bootstrap5 %}
+<head>
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+</head>
 {% block content %}
     <h1 class="my-4">{{ title }}</h1>
+    <p>{% trans "Are you sure you want to delete" %} {{ name }}?</p>
 
     <form method="post">
-        <p>{% trans 'Are you sure you want to delete' %} {{ name }}?</p>
+
         {% csrf_token %}
-        {% bootstrap_button button_text="{% trans 'Yes, delete' %}" button_type="submit" button_class="btn btn-danger" %}
+        {% bootstrap_button button_text button_type="submit" button_class="btn btn-danger" %}
+
     </form>
 {% endblock %}
