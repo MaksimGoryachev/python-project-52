@@ -9,7 +9,7 @@ from task_manager.users.models import User
 class Task(models.Model):
     name = models.CharField(
         max_length=200,
-        blank=True,
+        blank=False,
         verbose_name=_('Name'),
         unique=True,
 
@@ -17,7 +17,6 @@ class Task(models.Model):
 
     description = models.TextField(
         max_length=2000,
-        blank=True,
         verbose_name=_('Description'),
     )
 
@@ -29,7 +28,6 @@ class Task(models.Model):
     status = models.ForeignKey(
         Status,
         on_delete=models.PROTECT,
-        blank=True,
         related_name='status',
         verbose_name=_('Status'),
     )
@@ -37,7 +35,7 @@ class Task(models.Model):
     author = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
-        related_name='created_tasks',
+        related_name='author',
         verbose_name=_('Author'),
     )
 
@@ -52,8 +50,8 @@ class Task(models.Model):
         Labels,
         through='TaskLabelRelation',
         through_fields=('task', 'label'),
+        blank=False,
         related_name='labels',
-        blank=True,
         verbose_name=_('Labels'),
     )
 
