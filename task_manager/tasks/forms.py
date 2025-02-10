@@ -32,10 +32,7 @@ class TaskForm(forms.ModelForm):
             'name': {
                 'unique': _('A task with this name already exists.'),
             },
-            'labels': {
-                'required': _('Select the labels that apply to this task.'),
-            },
-            'description': {
-                'required': _('Enter a brief description of the task.'),
+            'status': {
+                'required': _('Please select an item from this list.'),
             },
         }
