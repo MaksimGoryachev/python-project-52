@@ -2,18 +2,24 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django_filters.views import FilterView
 
 from .forms import TaskForm
+from .filter import TaskFilter
 from .models import Task
 
 
-class TaskListView(ListView):
+class TaskListView(FilterView):
     model = Task
+    filterset_class = TaskFilter
     template_name = 'tasks/tasks.html'
     context_object_name = 'tasks'
     paginate_by = 15
     ordering = ['-created_at']
-    extra_context = {'title': _('Tasks')}
+    extra_context = {
+        'title': _('Tasks'),
+        'button_text': _('Show'),
+    }
 
 
 class TaskCreateView(SuccessMessageMixin, CreateView):
