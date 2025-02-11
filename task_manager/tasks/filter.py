@@ -1,7 +1,8 @@
-from django_filters import BooleanFilter, FilterSet, ModelChoiceFilter
 from django import forms
+
 # from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
+from django_filters import BooleanFilter, FilterSet, ModelChoiceFilter
 
 from ..labels.models import Labels
 from ..statuses.models import Status
