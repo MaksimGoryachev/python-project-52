@@ -17,6 +17,7 @@ class Task(models.Model):
 
     description = models.TextField(
         max_length=2000,
+        blank=True,
         verbose_name=_('Description'),
     )
 
@@ -43,6 +44,7 @@ class Task(models.Model):
         User,
         on_delete=models.PROTECT,
         related_name='executor',
+        blank=True,
         verbose_name=_('Executor'),
     )
 
@@ -50,7 +52,7 @@ class Task(models.Model):
         Labels,
         through='TaskLabelRelation',
         through_fields=('task', 'label'),
-        blank=False,
+        blank=True,
         related_name='labels',
         verbose_name=_('Labels'),
     )
