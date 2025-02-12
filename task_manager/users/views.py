@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+from ..mixin import AuthRequiredMixin
 from .forms import MyUserCreationForm
 from .models import User
 
@@ -29,7 +30,7 @@ class UserCreateView(CreateView, SuccessMessageMixin):
     }
 
 
-class UserUpdateView(UpdateView, SuccessMessageMixin):
+class UserUpdateView(AuthRequiredMixin, UpdateView, SuccessMessageMixin):
     model = User
     form_class = MyUserCreationForm
     success_url = reverse_lazy('users')
@@ -42,7 +43,7 @@ class UserUpdateView(UpdateView, SuccessMessageMixin):
     }
 
 
-class UserDeleteView(DeleteView, SuccessMessageMixin):
+class UserDeleteView(AuthRequiredMixin, DeleteView, SuccessMessageMixin):
     model = User
     success_url = reverse_lazy('users')
     success_message = _('User is successfully deleted')

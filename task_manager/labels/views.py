@@ -3,12 +3,12 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-# ,UpdateView
+from ..mixin import AuthRequiredMixin
 from .forms import LabelForm
 from .models import Labels
 
 
-class LabelListView(ListView):
+class LabelListView(AuthRequiredMixin, ListView):
     model = Labels
     template_name = 'labels/labels.html'
     context_object_name = 'labels'
@@ -17,7 +17,7 @@ class LabelListView(ListView):
     extra_context = {'title': _('Labels')}
 
 
-class LabelCreateView(SuccessMessageMixin, CreateView):
+class LabelCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'forms.html'
     model = Labels
     form_class = LabelForm
@@ -29,7 +29,7 @@ class LabelCreateView(SuccessMessageMixin, CreateView):
     }
 
 
-class LabelUpdateView(SuccessMessageMixin, UpdateView):
+class LabelUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'forms.html'
     model = Labels
     form_class = LabelForm
@@ -41,7 +41,7 @@ class LabelUpdateView(SuccessMessageMixin, UpdateView):
     }
 
 
-class LabelDeleteView(SuccessMessageMixin, DeleteView):
+class LabelDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
 
     template_name = 'delete.html'
     model = Labels

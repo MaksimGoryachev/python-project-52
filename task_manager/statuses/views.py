@@ -3,11 +3,12 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+from ..mixin import AuthRequiredMixin
 from .forms import StatusForm
 from .models import Status
 
 
-class StatusListView(ListView):
+class StatusListView(AuthRequiredMixin, ListView):
     model = Status
     template_name = 'statuses/statuses.html'
     context_object_name = 'statuses'
@@ -16,7 +17,7 @@ class StatusListView(ListView):
     extra_context = {'title': _('Statuses')}
 
 
-class StatusCreateView(SuccessMessageMixin, CreateView):
+class StatusCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     model = Status
     success_url = reverse_lazy('statuses')
     success_message = _('Status created successfully.')
@@ -28,7 +29,7 @@ class StatusCreateView(SuccessMessageMixin, CreateView):
     }
 
 
-class StatusUpdateView(SuccessMessageMixin, UpdateView):
+class StatusUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Status
     form_class = StatusForm
     success_url = reverse_lazy('statuses')
@@ -40,7 +41,7 @@ class StatusUpdateView(SuccessMessageMixin, UpdateView):
     }
 
 
-class StatusDeleteView(SuccessMessageMixin, DeleteView):
+class StatusDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Status
     success_url = reverse_lazy('statuses')
     success_message = _('Status deleted successfully.')
