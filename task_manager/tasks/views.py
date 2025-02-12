@@ -1,40 +1,44 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic.detail import DetailView
 from django_filters.views import FilterView
 
-from .forms import TaskForm
+from ..mixin import AuthRequiredMixin
 from .filter import TaskFilter
+from .forms import TaskForm
 from .models import Task
 
 
-class TaskListView(FilterView):
+class TaskListView(AuthRequiredMixin, FilterView):
     model = Task
     filterset_class = TaskFilter
     template_name = 'tasks/tasks.html'
     context_object_name = 'tasks'
-    paginate_by = 15
-    ordering = ['-created_at']
     extra_context = {
         'title': _('Tasks'),
         'button_text': _('Show'),
     }
 
 
-class TaskCreateView(SuccessMessageMixin, CreateView):
+class TaskCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'forms.html'
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy('tasks')
-    success_message = _('Task created successfully.')
+    success_message = _('Task was created successfully.')
     extra_context = {
         'title': _('Create task'),
         'button_text': _('Create'),
     }
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
-class TaskUpdateView(SuccessMessageMixin, UpdateView):
+
+class TaskUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy('tasks')
@@ -46,7 +50,16 @@ class TaskUpdateView(SuccessMessageMixin, UpdateView):
     }
 
 
-class TaskDeleteView(SuccessMessageMixin, DeleteView):
+class TaskDetailView(AuthRequiredMixin, DetailView):
+    model = Task
+    template_name = 'tasks/task_detail.html'
+    extra_context = {
+        'title': _('Task details'),
+    }
+    context_object_name = 'task'
+
+
+class TaskDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
     success_url = reverse_lazy('tasks')
     success_message = _('Task deleted successfully.')
