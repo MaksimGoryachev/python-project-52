@@ -25,7 +25,12 @@
                             <li class="nav-item"><a class="nav-link" href="{% url 'statuses' %}">{% trans "Statuses" %}</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'labels' %}">{% trans "Labels" %}</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'tasks' %}">{% trans "Tasks" %}</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">{% trans "Log out" %}</a></li>
+                            <li class="nav-item">
+                                <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <input class="btn nav-link" type="submit" value="{% trans 'Log out' %}">
+                                </form>
+                            </li>
 
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">{% trans "Enter" %}</a></li>
