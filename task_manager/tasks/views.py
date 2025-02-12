@@ -5,7 +5,7 @@ from django.views.generic import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django_filters.views import FilterView
 
-from ..mixin import AuthRequiredMixin
+from ..mixin import AuthorDeleteMixin, AuthRequiredMixin
 from .filter import TaskFilter
 from .forms import TaskForm
 from .models import Task
@@ -59,12 +59,13 @@ class TaskDetailView(AuthRequiredMixin, DetailView):
     context_object_name = 'task'
 
 
-class TaskDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(AuthRequiredMixin, AuthorDeleteMixin,
+                     SuccessMessageMixin, DeleteView):
     model = Task
     success_url = reverse_lazy('tasks')
     success_message = _('Task deleted successfully.')
     template_name = 'delete.html'
-    protected_massage = _('An issue can only be deleted by its author.')
+    protected_message = _('A task can only be deleted by its author.')
     protected_url = reverse_lazy('tasks')
     extra_context = {
         'title': _('Delete task'),
