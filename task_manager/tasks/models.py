@@ -45,6 +45,7 @@ class Task(models.Model):
         on_delete=models.PROTECT,
         related_name='executor',
         blank=True,
+        null=True,
         verbose_name=_('Executor'),
     )
 
