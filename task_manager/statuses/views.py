@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from ..mixin import AuthRequiredMixin
+from ..mixin import AuthRequiredMixin, ProtectDeletionMixin
 from .forms import StatusForm
 from .models import Status
 
@@ -41,14 +41,15 @@ class StatusUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     }
 
 
-class StatusDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
+class StatusDeleteView(AuthRequiredMixin, SuccessMessageMixin,
+                       ProtectDeletionMixin, DeleteView):
     model = Status
     success_url = reverse_lazy('statuses')
     success_message = _('Status deleted successfully.')
     template_name = 'delete.html'
-    protected_message = _('It is not possible to delete a status '
-                          'because it is in use')
-    protected_url = reverse_lazy('statuses')
+    protect_deletion_message = _('It is not possible to delete '
+                                 'a status because it is being used')
+    protect_deletion_url = reverse_lazy('statuses')
     extra_context = {
         'title': _('Delete status'),
         'button_text': _('Yes, delete'),
