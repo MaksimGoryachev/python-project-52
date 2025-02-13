@@ -4,7 +4,11 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from ..mixin import AuthRequiredMixin, ProtectDeletionMixin
+from ..mixin import (
+    AuthRequiredMixin,
+    ProtectChangeUserMixin,
+    ProtectDeletionMixin,
+)
 from .forms import MyUserCreationForm
 from .models import User
 
@@ -30,12 +34,14 @@ class UserCreateView(CreateView, SuccessMessageMixin):
     }
 
 
-class UserUpdateView(AuthRequiredMixin, UpdateView, SuccessMessageMixin):
+class UserUpdateView(AuthRequiredMixin, ProtectChangeUserMixin,
+                     UpdateView, SuccessMessageMixin):
     model = User
     form_class = MyUserCreationForm
     success_url = reverse_lazy('users')
     success_message = _('User is successfully updated')
     protected_message = _("You don't have the rights to change another user.")
+    protected_url = reverse_lazy('users')
     template_name = 'forms.html'
     extra_context = {
         'title': _('Update user'),
@@ -43,8 +49,8 @@ class UserUpdateView(AuthRequiredMixin, UpdateView, SuccessMessageMixin):
     }
 
 
-class UserDeleteView(AuthRequiredMixin, DeleteView,
-                     ProtectDeletionMixin, SuccessMessageMixin):
+class UserDeleteView(AuthRequiredMixin, ProtectChangeUserMixin,
+                     ProtectDeletionMixin, SuccessMessageMixin, DeleteView):
     model = User
     success_url = reverse_lazy('users')
     success_message = _('User is successfully deleted')
@@ -52,6 +58,7 @@ class UserDeleteView(AuthRequiredMixin, DeleteView,
     protect_deletion_message = _('It is not possible to delete '
                                  'a user because it is being used')
     protect_deletion_url = reverse_lazy('users')
+    protected_url = reverse_lazy('users')
     template_name = 'delete.html'
     extra_context = {
         'title': _('Delete user'),
