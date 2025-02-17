@@ -49,5 +49,7 @@ trans:
 	${UV} django-admin makemessages --ignore="static" --ignore="index1.html" -l ru_RU
 	${UV} django-admin compilemessages
 
+test:
+	./manage.py test task_manager
 
-.PHONY: install lint1 lint selfcheck check build start render-start dev setup fix migrate shell static makemessages compilemessages trans
+.PHONY: install lint1 lint selfcheck check build start render-start dev setup fix migrate shell static makemessages compilemessages trans test
