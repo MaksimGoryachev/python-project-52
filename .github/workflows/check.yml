@@ -8,11 +8,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Python 3.x
         uses: actions/setup-python@v4
         with:
@@ -23,15 +23,14 @@ jobs:
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
           make install
-      - name: Run linter ans selfcheck
-        run: make check
 
+      - name: Run linter ans self-check
+        run: make check
 
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        run: |
-          make test
+        run: make test
 
       - name: Run code coverage
         uses: paambaati/codeclimate-action@v5.0.0
