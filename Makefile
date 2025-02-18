@@ -50,7 +50,7 @@ trans:
 	${UV} django-admin compilemessages
 
 test:
-	./manage.py test task_manager
+	${UV} python manage.py test task_manager
 
 coverage:
 	${UV} coverage run manage.py test
