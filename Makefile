@@ -52,4 +52,10 @@ trans:
 test:
 	./manage.py test task_manager
 
-.PHONY: install lint1 lint selfcheck check build start render-start dev setup fix migrate shell static makemessages compilemessages trans test
+coverage:
+	${UV} coverage run manage.py test
+	${UV} coverage report -m --include=task_manager/* --omit=task_manager/settings.py
+	${UV} coverage xml --include=task_manager/* --omit=task_manager/settings.py
+	${UV} coverage html --include=task_manager/* --omit=task_manager/settings.py
+
+.PHONY: install lint1 lint selfcheck check build start render-start dev setup fix migrate shell static makemessages compilemessages trans test coverage
