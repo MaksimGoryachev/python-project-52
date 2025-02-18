@@ -75,3 +75,10 @@ class LabelViewsTestCase(TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), 'Невозможно удалить метку,'
                                            ' потому что она используется')
+
+    def test_label_delete_view_context(self):
+        response = self.client.get(reverse('label_delete',
+                                           args=[self.label.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'delete.html')
+        self.assertEqual(response.context['name'], self.label.name)
