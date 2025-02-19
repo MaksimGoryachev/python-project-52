@@ -5,7 +5,6 @@ from task_manager import views
 
 urlpatterns = [
     path('', views.BaseView.as_view(), name='base'),
-    path('index/', views.get_index, name='index'),
     path('login/', views.UserLoginView.as_view(), name='login'),
     path('logout/', views.UserLogoutView.as_view(), name='logout'),
 

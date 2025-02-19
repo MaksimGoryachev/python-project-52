@@ -9,10 +9,6 @@ from django.views import View
 from task_manager.users.forms import MyAuthenticationForm
 
 
-def get_index(request):
-    return render(request, 'index.html', context={})
-
-
 class BaseView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'base.html', context={})
