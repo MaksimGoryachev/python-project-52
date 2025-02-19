@@ -39,6 +39,7 @@ class LabelViewsTestCase(TestCase):
         self.assertEqual(Labels.objects.get(name='New Label').name,
                          'New Label')
         self.assertTrue(Labels.objects.filter(name='New Label').exists())
+        self.assertEqual(str(self.label), 'Test Label')
 
     def test_label_update_view(self):
         response = self.client.post(reverse('label_update',
