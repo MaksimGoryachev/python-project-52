@@ -36,10 +36,10 @@ class MyUserCreationForm(UserCreationForm):
                 'autofocus': 'true',
             }),
             'first_name': forms.TextInput(attrs={
-                'placeholder': _('First name')
+                'placeholder': _('First name'),
             }),
             'last_name': forms.TextInput(attrs={
-                'placeholder': _('Last name')
+                'placeholder': _('Last name'),
             }),
             'password1': forms.PasswordInput(attrs={
                 'placeholder': _('Password')
@@ -48,6 +48,46 @@ class MyUserCreationForm(UserCreationForm):
                 'placeholder': _('Confirm password')
             }),
         }
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError(_('A user with that username'
+                                          ' already exists.'))
+        return username
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+        if not first_name:
+            raise forms.ValidationError(_('Please fill in this field.'))
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get('last_name')
+        if not last_name:
+            raise forms.ValidationError(_('Please fill in this field.'))
+        return last_name
+
+
+class MyUserChangeForm(MyUserCreationForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'username',
+            'password1',
+            'password2',
+        )
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if username and User.objects.filter(
+                username=username).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError(_('A user with that username'
+                                          ' already exists.'))
+        return username
 
 
 class MyAuthenticationForm(AuthenticationForm):
