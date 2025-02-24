@@ -1,4 +1,3 @@
-# from django.contrib.auth.views import UserCreationView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
@@ -9,7 +8,7 @@ from ..mixin import (
     ProtectChangeUserMixin,
     ProtectDeletionMixin,
 )
-from .forms import MyUserCreationForm
+from .forms import MyUserChangeForm, MyUserCreationForm
 from .models import User
 
 
@@ -37,7 +36,7 @@ class UserCreateView(CreateView, SuccessMessageMixin):
 class UserUpdateView(AuthRequiredMixin, ProtectChangeUserMixin,
                      UpdateView, SuccessMessageMixin):
     model = User
-    form_class = MyUserCreationForm
+    form_class = MyUserChangeForm
     success_url = reverse_lazy('users')
     success_message = _('User is successfully updated')
     protected_message = _("You don't have the rights to change another user.")
