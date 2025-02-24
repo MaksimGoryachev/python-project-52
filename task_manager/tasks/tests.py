@@ -1,3 +1,4 @@
+from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
@@ -95,3 +96,18 @@ class TaskViewTest(TestCase):
         self.assertIn('status', form.errors)
         self.assertEqual(form.errors['status'],
                          ['Пожалуйста выберите элемент из этого списка'])
+
+    def test_author_can_delete_own_object(self):
+        response = self.client.post(reverse('task_delete',
+                                            args=[self.task1.id]))
+        self.assertRedirects(response, reverse('tasks'))
+        self.assertFalse(Task.objects.filter(id=self.task1.id).exists())
+
+    def test_non_author_cannot_delete_object(self):
+        self.client.login(username='testuser2', password='password2')
+        response = self.client.post(reverse('task_delete',
+                                            args=[self.task1.id]))
+        self.assertRedirects(response, reverse('tasks'))
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[0]),
+                         'Задачу может удалить только ее автор')
