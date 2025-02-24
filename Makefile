@@ -53,7 +53,7 @@ test:
 	${UV} python manage.py test task_manager
 
 coverage:
-	${UV} coverage run manage.py test
+	${UV} coverage run manage.py test task_manager
 	${UV} coverage report -m --include=task_manager/* --omit=task_manager/settings.py
 	${UV} coverage xml --include=task_manager/* --omit=task_manager/settings.py
 	${UV} coverage html --include=task_manager/* --omit=task_manager/settings.py
