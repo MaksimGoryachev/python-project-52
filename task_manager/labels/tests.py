@@ -1,6 +1,7 @@
 from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from ..statuses.models import Status
 from ..tasks.models import Task
@@ -59,7 +60,7 @@ class LabelViewsTestCase(TestCase):
         self.assertFalse(Labels.objects.filter(name='Test Label').exists())
         self.assertEqual(Labels.objects.count(), 0)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Метка удалена успешно')
+        self.assertEqual(str(messages[0]), _('Label successfully deleted'))
 
     def test_label_delete_protect_deletion(self):
         self.status = Status.objects.create(name='Test Task')
@@ -74,8 +75,8 @@ class LabelViewsTestCase(TestCase):
         self.assertTrue(Labels.objects.filter(id=self.label.id).exists())
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'Невозможно удалить метку,'
-                                           ' потому что она используется')
+        self.assertEqual(str(messages[0]), _('It is not possible to delete a '
+                                             'label because it is being used'))
 
     def test_label_delete_view_context(self):
         response = self.client.get(reverse('label_delete',

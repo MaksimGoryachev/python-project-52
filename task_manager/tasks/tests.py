@@ -1,6 +1,7 @@
 from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from ..labels.models import Labels
 from ..statuses.models import Status
@@ -55,7 +56,6 @@ class TaskViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['name'], self.task1.name)
         self.assertTemplateUsed(response, 'delete.html')
-        # self.assertFalse(Task.objects.filter(id=self.task1.id).exists())
 
     def test_form_valid_creates_task(self):
         task_data = {
@@ -75,7 +75,7 @@ class TaskViewTest(TestCase):
         self.assertRedirects(response, reverse('tasks'))
 
         messages = list(response.wsgi_request._messages)
-        self.assertEqual(str(messages[0]), 'Задача успешно создана')
+        self.assertEqual(str(messages[0]), _('Task was created successfully.'))
 
     def test_form_invalid_does_not_create_task(self):
         invalid_task_data = {
@@ -95,7 +95,7 @@ class TaskViewTest(TestCase):
 
         self.assertIn('status', form.errors)
         self.assertEqual(form.errors['status'],
-                         ['Пожалуйста выберите элемент из этого списка'])
+                         [_('Please select an item from this list.')])
 
     def test_author_can_delete_own_object(self):
         response = self.client.post(reverse('task_delete',
@@ -110,4 +110,4 @@ class TaskViewTest(TestCase):
         self.assertRedirects(response, reverse('tasks'))
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]),
-                         'Задачу может удалить только ее автор')
+                         _('A task can only be deleted by its author.'))
