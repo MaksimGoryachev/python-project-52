@@ -1,5 +1,6 @@
 UV := uv run
 UVPM:= uv run python manage.py
+PORT ?= 8000
 
 install:
 	uv sync
@@ -14,9 +15,8 @@ migrate:
 	${UVPM} makemigrations
 	${UVPM} migrate
 
-PORT ?= 8000
 start:
-	${UV} gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
+	python -m gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
 
 render-start:
 	python -m gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi:application
