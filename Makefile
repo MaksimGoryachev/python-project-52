@@ -16,7 +16,7 @@ migrate:
 	${UVPM} migrate
 
 start:
-	python -m gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
+	${UV} python manage.py runserver 0.0.0.0:8000
 
 render-start:
 	python -m gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi:application
