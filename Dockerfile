@@ -1,14 +1,17 @@
-FROM python:3.9-slim
+FROM python:3.12-slim
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-ENV PATH="/root/.local/bin:${PATH}"
+# Устанавливаем зависимости
+RUN pip install --upgrade pip
+COPY ./requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY pyproject.toml .
-RUN uv sync
+# Копируем исходный код приложения
+COPY . /app/
 
-COPY . .
+# Собираем статические файлы
 RUN python manage.py collectstatic --no-input
 
 EXPOSE 8000
