@@ -16,9 +16,6 @@ migrate:
 	${UVPM} migrate
 
 start:
-	${UV} python manage.py runserver 0.0.0.0:8000
-
-render-start:
 	python -m gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi:application
 
 build:
@@ -38,7 +35,7 @@ shell:
 
 lint: lint1 ruff
 
-setup: build install
+setup: build install migrate static
 
 selfcheck:
 	uv pip check
@@ -58,4 +55,4 @@ coverage:
 	${UV} coverage xml --include=task_manager/* --omit=task_manager/settings.py
 	${UV} coverage html --include=task_manager/* --omit=task_manager/settings.py
 
-.PHONY: install lint1 lint selfcheck check build start render-start dev setup fix migrate shell static makemessages compilemessages trans test coverage
+.PHONY: install lint1 lint selfcheck check build start dev setup fix migrate shell static makemessages compilemessages trans test coverage
