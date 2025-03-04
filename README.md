@@ -7,10 +7,15 @@
 ---
 ### Description
 
-[Task Manager](https://python-project-52-9hb2.onrender.com): this is a web application that allows you to implement the full lifecycle (CRUD) of users and their tasks. The application is built with Python and Django framework.
+[Task Manager](https://python-project-52-9hb2.onrender.com): is a web application built with Python and Django that allows users to manage tasks, statuses, and labels. It supports full CRUD (Create, Read, Update, Delete) operations for tasks, users, statuses, and labels. The application is designed to be simple, intuitive, and easy to use.
 
-
+Key features:
+- User registration and authentication.
+- Task management with statuses and labels.
+- Filtering tasks by status, performer, and label.
+- Responsive design using Bootstrap 5.
 ---
+
 ### Links
 
 This project was built using these tools:
@@ -30,21 +35,18 @@ This project was built using these tools:
 | [Flake8](https://flake8.pycqa.org/en/latest/)             | "A tool for checking Python code style and quality."            |
 | [Coverage.py](https://coverage.readthedocs.io/en/7.6.12/) | "A tool for measuring code coverage of Python programs." |
 
-## Installation
 
-### _Installation with Docker_
+### Installation with Docker
 
-You must have python 3.12 and newer, uv and postgresql installed to work properly
-
-#### Repository cloning
-Clone the repository to your computer:
+#### _Repository cloning_
+First, clone the repository to your local machine:
 ```bash
 >> git clone git@github.com:MaksimGoryachev/python-project-52.git && cd python-project-52
 ```
 
-#### Environment Variables
+#### _Environment Variables_
 
-To configure the application, you need to set up the required environment variables. A detailed example of these variables can be found in the .env.example file. Create an `.env` file in the root of the project and add the following variables to it:
+To configure the application, you need to configure the necessary environment variables. A detailed example of these variables can be found in the .env.example file. Copy it to the .env file and replace the placeholders with your actual values:
 
     DATABASE_URL=postgres://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>
     SECRET_KEY=<your-secret-key-here> # Django will refuse to start if SECRET_KEY is not set
@@ -53,33 +55,86 @@ To configure the application, you need to set up the required environment variab
     POSTGRES_USER=<USER>
     POSTGRES_PASSWORD=<PASSWORD>
 
-For a complete example, refer to the .env.example file. Copy it to .env and replace the placeholders with your actual values.
+#### _Run application with docker-compose_
 
-#### Run application 
+To build and start the application using Docker, run:
 
-Docker will create the image and the necessary containers with a single command:
 ```bash
 >> docker-compose up --build
 ```
-The server is running at http://0.0.0.0:8000
-### Database creation
-```sh
+Once the containers are up and running, the application will be available at http://0.0.0.0:8000
+
+### Installation without Docker
+
+To run the application without Docker, ensure you have the following installed:
+- Python 3.12 or newer
+- PostgreSQL
+- `uv` (a fast Python package manager)
+
+#### _Repository cloning_
+
+First, clone the repository to your local machine:
+```bash
+>> git clone git@github.com:MaksimGoryachev/python-project-52.git && cd python-project-52
+```
+
+#### _Environment Variables_
+
+To configure the application, you need to configure the necessary environment variables. A detailed example of these variables can be found in the .env.example file. Copy it to the .env file and replace the placeholders with your actual values:
+
+    DATABASE_URL=postgres://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>
+    SECRET_KEY=<your-secret-key-here> # Django will refuse to start if SECRET_KEY is not set
+    DEBUG=False
+
+#### _Database creation_
+
+```shell
 whoami
 {username}
 sudo -u postgres createuser --createdb {username} 
 createdb {databasename}
 ```
 
-### Installing dependencies
-Install the package `make setup`
+#### _Installing package_
+
+Install the package and apply the database migrations:
+```shell
+>> make setup
+```
+
+Create a superuser (optional)
+
+Create a superuser to access the Django admin panel:
+```shell
+>> python manage.py createsuperuser
+```
+---
+
+### Usage
+
+#### _Start the Gunicorn Web-server by running:_
+
+```shell
+>> make start
+```
+
+By default, the server will be available at http://0.0.0.0:8000.
+
+#### _Start the app on the local dev server_
+
+```shell
+>> make dev
+```
+
+The dev server will be at http://127.0.0.1:8000.
 
 ---
 
-## Start the app on the local dev server
-`make dev`
+### Available Actions:
 
----
-## Start the app on the production server
-`make start`
-
----
+    Registration — First, you need to register in the application using the registration form provided;
+    Authentication — To use the application, you need to log in using the information from the registration form.
+    Users — You can see the list of all registered users on the corresponding page. It is available without authorization. User can change or delete information only about yourself;
+    Statuses — You can view, add, update, and delete task statuses if you are logged in. Statuses used in existing tasks cannot be deleted;
+    Tasks — You can view, add, and update tasks if you are logged in. Only the task creator can delete tasks. You can also filter tasks on the corresponding page with specified statuses, performers, and labels;
+    Labels — You can view, add, update, and delete task labels if you are logged in. Labels used in existing tasks cannot be deleted.
