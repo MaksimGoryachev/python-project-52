@@ -132,9 +132,9 @@ The dev server will be at http://127.0.0.1:8000.
 
 ### Available Actions:
 
-    Registration — First, you need to register in the application using the registration form provided;
-    Authentication — To use the application, you need to log in using the information from the registration form.
-    Users — You can see the list of all registered users on the corresponding page. It is available without authorization. User can change or delete information only about yourself;
-    Statuses — You can view, add, update, and delete task statuses if you are logged in. Statuses used in existing tasks cannot be deleted;
-    Tasks — You can view, add, and update tasks if you are logged in. Only the task creator can delete tasks. You can also filter tasks on the corresponding page with specified statuses, performers, and labels;
-    Labels — You can view, add, update, and delete task labels if you are logged in. Labels used in existing tasks cannot be deleted.
+- __Registration__ — First, you need to register in the application using the registration form provided;
+- __Authentication__ — To use the application, you need to log in using the information from the registration form.
+- __Users__ — You can see the list of all registered users on the corresponding page. It is available without authorization. User can change or delete information only about yourself;
+- __Statuses__ — You can view, add, update, and delete task statuses if you are logged in. Statuses used in existing tasks cannot be deleted;
+- __Tasks__ — You can view, add, and update tasks if you are logged in. Only the task creator can delete tasks. You can also filter tasks on the corresponding page with specified statuses, performers, and labels;
+- __Labels__ — You can view, add, update, and delete task labels if you are logged in. Labels used in existing tasks cannot be deleted.
