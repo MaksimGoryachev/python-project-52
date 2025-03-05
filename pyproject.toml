@@ -2,11 +2,13 @@
 name = "hexlet-code"
 version = "0.1.0"
 description = "Task manager"
+authors = ["MaksimGoryachev <m.goryachev2011@yandex.ru>"]
 readme = "README.md"
 packages = [
   { include = "task_manager" },
 ]
 requires-python = ">= 3.12.3"
+
 dependencies = [
     "dj-database-url>=2.3.0",
     "django==5.1.5",
@@ -25,6 +27,7 @@ dependencies = [
 dev = [
     "coverage>=7.6.10",
     "flake8>=7.1.1",
+    "pytest-django>=4.10.0",
     "ruff>=0.9.2",
 ]
 
