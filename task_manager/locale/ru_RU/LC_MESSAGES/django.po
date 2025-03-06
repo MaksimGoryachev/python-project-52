@@ -53,7 +53,7 @@ msgstr "Метки"
 
 #: task_manager/labels/tests.py:63 task_manager/labels/views.py:50
 msgid "Label successfully deleted"
-msgstr "Метка удалена успешно"
+msgstr "Метка успешно удалена"
 
 #: task_manager/labels/tests.py:78 task_manager/labels/views.py:51
 msgid "It is not possible to delete a label because it is being used"
