@@ -21,7 +21,7 @@ class UserListView(ListView):
     extra_context = {'title': _('Users')}
 
 
-class UserCreateView(CreateView, SuccessMessageMixin):
+class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = 'forms.html'
     model = User
     form_class = MyUserCreationForm
@@ -34,7 +34,7 @@ class UserCreateView(CreateView, SuccessMessageMixin):
 
 
 class UserUpdateView(AuthRequiredMixin, ProtectChangeUserMixin,
-                     UpdateView, SuccessMessageMixin):
+                     SuccessMessageMixin, UpdateView):
     model = User
     form_class = MyUserChangeForm
     success_url = reverse_lazy('users')
