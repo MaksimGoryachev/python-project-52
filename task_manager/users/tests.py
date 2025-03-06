@@ -36,7 +36,7 @@ class UserViewTest(TestCase):
         self.assertEqual(str(messages[0]), _('You are logged in'))
 
     def test_successful_logout(self):
-        response = self.client.get(self.logout_url, follow=True)
+        response = self.client.post(self.logout_url, follow=True)
         messages = list(get_messages(response.wsgi_request))
         self.assertTrue(messages)
         self.assertEqual(str(messages[0]), _('You are logged out'))
