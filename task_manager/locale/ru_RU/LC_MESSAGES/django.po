@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-24 18:14+0500\n"
+"POT-Creation-Date: 2025-03-06 21:23+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,14 @@ msgstr "Метка"
 msgid "Labels"
 msgstr "Метки"
 
+#: task_manager/labels/tests.py:63 task_manager/labels/views.py:50
+msgid "Label successfully deleted"
+msgstr "Метка удалена успешно"
+
+#: task_manager/labels/tests.py:78 task_manager/labels/views.py:51
+msgid "It is not possible to delete a label because it is being used"
+msgstr "Невозможно удалить метку, потому что она используется"
+
 #: task_manager/labels/views.py:25
 msgid "Label successfully created"
 msgstr "Метка успешно создана"
@@ -80,14 +88,6 @@ msgstr "Изменить метку"
 #: task_manager/templates/users/users.html:29 task_manager/users/views.py:47
 msgid "Update"
 msgstr "Изменить"
-
-#: task_manager/labels/views.py:50
-msgid "Label successfully deleted"
-msgstr "Метка удалена успешно"
-
-#: task_manager/labels/views.py:51
-msgid "It is not possible to delete a label because it is being used"
-msgstr "Невозможно удалить метку, потому что она используется"
 
 #: task_manager/labels/views.py:55
 msgid "Delete label"
@@ -172,7 +172,7 @@ msgstr "Описание"
 msgid "A task with this name already exists."
 msgstr "Задача с таким названием уже существует"
 
-#: task_manager/tasks/forms.py:36
+#: task_manager/tasks/forms.py:36 task_manager/tasks/tests.py:98
 msgid "Please select an item from this list."
 msgstr "Пожалуйста выберите элемент из этого списка"
 
@@ -191,13 +191,17 @@ msgstr "Задача"
 msgid "Tasks"
 msgstr "Задачи"
 
+#: task_manager/tasks/tests.py:78 task_manager/tasks/views.py:30
+msgid "Task was created successfully."
+msgstr "Задача успешно создана"
+
+#: task_manager/tasks/tests.py:113 task_manager/tasks/views.py:68
+msgid "A task can only be deleted by its author."
+msgstr "Задачу может удалить только ее автор"
+
 #: task_manager/tasks/views.py:21
 msgid "Show"
 msgstr "Показать"
-
-#: task_manager/tasks/views.py:30
-msgid "Task was created successfully."
-msgstr "Задача успешно создана"
 
 #: task_manager/tasks/views.py:32 task_manager/templates/tasks/tasks.html:10
 msgid "Create task"
@@ -219,10 +223,6 @@ msgstr "Детали задачи"
 msgid "Task deleted successfully."
 msgstr "Задача успешно удалена"
 
-#: task_manager/tasks/views.py:68
-msgid "A task can only be deleted by its author."
-msgstr "Задачу может удалить только ее автор"
-
 #: task_manager/tasks/views.py:71
 msgid "Delete task"
 msgstr "Удалить задачу"
@@ -242,9 +242,8 @@ msgstr "Пользователи"
 msgid "Log out"
 msgstr "Выход"
 
-#: task_manager/templates/base.html:36 task_manager/templates/index2.html:17
-#: task_manager/views.py:24
-msgid "Enter"
+#: task_manager/templates/base.html:36
+msgid "Entrance"
 msgstr "Вход"
 
 #: task_manager/templates/base.html:37
@@ -268,6 +267,10 @@ msgstr "Вы уверены, что хотите удалить"
 #| msgid "Task manager"
 msgid "Task Manager"
 msgstr "Менеджер задач"
+
+#: task_manager/templates/index2.html:17 task_manager/views.py:24
+msgid "Enter"
+msgstr "Войти"
 
 #: task_manager/templates/labels/labels.html:31
 #: task_manager/templates/statuses/statuses.html:31
@@ -313,10 +316,12 @@ msgid "Please enter the password again to confirm."
 msgstr "Пожалуйста, введите пароль еще раз для подтверждения."
 
 #: task_manager/users/forms.py:56 task_manager/users/forms.py:88
+#: task_manager/users/tests.py:145
 msgid "A user with that username already exists."
 msgstr "Пользователь с таким именем уже существует."
 
 #: task_manager/users/forms.py:63 task_manager/users/forms.py:69
+#: task_manager/users/tests.py:160
 msgid "Please fill in this field."
 msgstr "Пожалуйста, заполнте это поле."
 
