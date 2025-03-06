@@ -21,7 +21,7 @@ class TaskFilter(FilterSet):
         label=_('Executor'),
         empty_label=_('All')
     )
-    label = ModelChoiceFilter(
+    labels = ModelChoiceFilter(
         queryset=Labels.objects.all(),
         label=_('Label'),
         empty_label=_('All')
@@ -40,4 +40,4 @@ class TaskFilter(FilterSet):
 
     class Meta:
         model = Task
-        fields = ['status', 'executor', 'label', 'your_tasks']
+        fields = ['status', 'executor', 'labels', 'your_tasks']
