@@ -59,6 +59,7 @@ class UserDeleteView(AuthRequiredMixin, ProtectChangeUserMixin,
     protect_deletion_url = reverse_lazy('users')
     protected_url = reverse_lazy('users')
     template_name = 'delete.html'
+    related_name = 'author'
     extra_context = {
         'title': _('Delete user'),
         'button_text': _('Yes, delete'),

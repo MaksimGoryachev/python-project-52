@@ -73,4 +73,6 @@ class TaskLabelRelation(models.Model):
     )
     label = models.ForeignKey(
         Labels, on_delete=models.PROTECT,
+        verbose_name=_('Label'),
+        related_name='task_label_relations',
     )
