@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models import ProtectedError
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -31,13 +30,18 @@ class AuthorDeleteMixin(UserPassesTestMixin):
 class ProtectDeletionMixin:
     protect_deletion_message = None
     protect_deletion_url = None
+    related_name = None
 
     def post(self, request, *args, **kwargs):
-        try:
-            return super().post(self, request, *args, **kwargs)
-        except ProtectedError:
+        self.object = self.get_object()
+
+        if getattr(self.object, self.related_name).exists():
             messages.error(request, self.protect_deletion_message)
             return redirect(self.protect_deletion_url)
+
+        self.object.delete()
+        messages.success(request, self.success_message)
+        return redirect(self.success_url)
 
 
 class ProtectChangeUserMixin(UserPassesTestMixin):
