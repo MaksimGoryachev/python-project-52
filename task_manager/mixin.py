@@ -28,20 +28,18 @@ class AuthorDeleteMixin(UserPassesTestMixin):
 
 
 class ProtectDeletionMixin:
-    protect_deletion_message = None
     protect_deletion_url = None
     related_name = None
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
 
-        if getattr(self.object, self.related_name).exists():
+        if self.related_name and getattr(self.object,
+                                         self.related_name).exists():
             messages.error(request, self.protect_deletion_message)
             return redirect(self.protect_deletion_url)
 
-        self.object.delete()
-        messages.success(request, self.success_message)
-        return redirect(self.success_url)
+        return super().post(request, *args, **kwargs)
 
 
 class ProtectChangeUserMixin(UserPassesTestMixin):
