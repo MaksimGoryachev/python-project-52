@@ -1,8 +1,9 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView
 
+from ..base_class import BaseDeleteView
 from ..mixin import (
     AuthRequiredMixin,
     ProtectChangeUserMixin,
@@ -48,24 +49,22 @@ class UserUpdateView(AuthRequiredMixin, ProtectChangeUserMixin,
     }
 
 
-class UserDeleteView(AuthRequiredMixin, ProtectChangeUserMixin,
-                     ProtectDeletionMixin, SuccessMessageMixin, DeleteView):
+class UserDeleteView(ProtectChangeUserMixin,
+                     ProtectDeletionMixin, BaseDeleteView):
     model = User
     success_url = reverse_lazy('users')
     success_message = _('User is successfully deleted')
+    protected_url = reverse_lazy('users')
     protected_message = _("You don't have the rights to change another user.")
+    protect_deletion_url = reverse_lazy('users')
     protect_deletion_message = _('It is not possible to delete '
                                  'a user because it is being used')
-    protect_deletion_url = reverse_lazy('users')
-    protected_url = reverse_lazy('users')
-    template_name = 'delete.html'
     related_name = 'author'
-    extra_context = {
-        'title': _('Delete user'),
-        'button_text': _('Yes, delete'),
-    }
+    name_attribute = 'username'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['name'] = self.object.username
+        context.update({
+            'title': _('Delete user'),
+        })
         return context

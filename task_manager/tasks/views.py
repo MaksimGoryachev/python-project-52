@@ -1,10 +1,11 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django_filters.views import FilterView
 
+from ..base_class import BaseDeleteView
 from ..mixin import AuthorDeleteMixin, AuthRequiredMixin
 from .filter import TaskFilter
 from .forms import TaskForm
@@ -59,20 +60,16 @@ class TaskDetailView(AuthRequiredMixin, DetailView):
     context_object_name = 'task'
 
 
-class TaskDeleteView(AuthRequiredMixin, AuthorDeleteMixin,
-                     SuccessMessageMixin, DeleteView):
+class TaskDeleteView(AuthorDeleteMixin, BaseDeleteView):
     model = Task
     success_url = reverse_lazy('tasks')
     success_message = _('Task deleted successfully.')
-    template_name = 'delete.html'
-    protected_author_message = _('A task can only be deleted by its author.')
     protected_author_url = reverse_lazy('tasks')
-    extra_context = {
-        'title': _('Delete task'),
-        'button_text': _('Yes, delete'),
-    }
+    protected_author_message = _('A task can only be deleted by its author.')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['name'] = self.object.name
+        context.update({
+            'title': _('Delete task'),
+        })
         return context
