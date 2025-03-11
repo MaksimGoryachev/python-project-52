@@ -15,7 +15,6 @@ class TaskListView(AuthRequiredMixin, FilterView):
     filterset_class = TaskFilter
     template_name = 'tasks/tasks.html'
     context_object_name = 'tasks'
-    paginate_by = 15
     extra_context = {
         'title': _('Tasks'),
         'button_text': _('Show'),
