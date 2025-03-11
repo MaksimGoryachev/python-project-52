@@ -43,7 +43,7 @@ selfcheck:
 check: selfcheck lint
 
 trans:
-	${UV} django-admin makemessages --ignore="static" --ignore="index1.html" -l ru_RU
+	${UV} django-admin makemessages --ignore="static" --ignore="Diff" -l ru_RU
 	${UV} django-admin compilemessages
 
 test:
