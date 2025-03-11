@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from ..users.models import User
 from .models import Status
@@ -21,3 +22,9 @@ class StatusViewTest(TestCase):
                                            args=[self.status.id]), follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['name'], self.status.name)
+
+        self.assertIn('title', response.context)
+        self.assertEqual(response.context['title'], _('Delete status'))
+
+        self.assertIn('button_text', response.context)
+        self.assertEqual(response.context['button_text'], _('Yes, delete'))

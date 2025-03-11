@@ -57,6 +57,19 @@ class TaskViewTest(TestCase):
         self.assertEqual(response.context['name'], self.task1.name)
         self.assertTemplateUsed(response, 'delete.html')
 
+    def test_delete_view_context(self):
+        response = self.client.get(reverse('task_delete', args=[self.task1.id]))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertIn('title', response.context)
+        self.assertEqual(response.context['title'], _('Delete task'))
+
+        self.assertIn('button_text', response.context)
+        self.assertEqual(response.context['button_text'], _('Yes, delete'))
+
+        self.assertIn('name', response.context)
+        self.assertEqual(response.context['name'], self.task1.name)
+
     def test_form_valid_creates_task(self):
         task_data = {
             'name': 'Test Task',

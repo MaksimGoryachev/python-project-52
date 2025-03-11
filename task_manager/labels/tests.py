@@ -84,3 +84,14 @@ class LabelViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'delete.html')
         self.assertEqual(response.context['name'], self.label.name)
+
+    def test_label_update_view_context(self):
+        response = self.client.get(reverse('label_update',
+                                           args=[self.label.id]))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertIn('title', response.context)
+        self.assertEqual(response.context['title'], _('Update label'))
+
+        self.assertIn('button_text', response.context)
+        self.assertEqual(response.context['button_text'], _('Update'))
