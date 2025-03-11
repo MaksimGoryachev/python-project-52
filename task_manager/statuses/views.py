@@ -1,9 +1,8 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import ListView
 
-from ..base_class import BaseDeleteView
+from ..base_class import BaseCreateView, BaseDeleteView, BaseUpdateView
 from ..mixin import AuthRequiredMixin, ProtectDeletionMixin
 from .forms import StatusForm
 from .models import Status
@@ -18,28 +17,20 @@ class StatusListView(AuthRequiredMixin, ListView):
     extra_context = {'title': _('Statuses')}
 
 
-class StatusCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):
+class StatusCreateView(BaseCreateView):
     model = Status
     success_url = reverse_lazy('statuses')
     success_message = _('Status created successfully.')
     form_class = StatusForm
-    template_name = 'forms.html'
-    extra_context = {
-        'title': _('Create status'),
-        'button_text': _('Create'),
-    }
+    title = _('Create status')
 
 
-class StatusUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
+class StatusUpdateView(BaseUpdateView):
     model = Status
     form_class = StatusForm
     success_url = reverse_lazy('statuses')
     success_message = _('Status updated successfully.')
-    template_name = 'forms.html'
-    extra_context = {
-        'title': _('Update status'),
-        'button_text': _('Update'),
-    }
+    title = _('Update status')
 
 
 class StatusDeleteView(ProtectDeletionMixin, BaseDeleteView):
@@ -50,10 +41,4 @@ class StatusDeleteView(ProtectDeletionMixin, BaseDeleteView):
     protect_deletion_message = _('It is not possible to delete '
                                  'a status because it is being used')
     related_name = 'status'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'title': _('Delete status'),
-        })
-        return context
+    title = _('Delete status')

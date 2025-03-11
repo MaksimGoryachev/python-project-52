@@ -1,9 +1,8 @@
-from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import ListView
 
-from ..base_class import BaseDeleteView
+from ..base_class import BaseCreateView, BaseDeleteView, BaseUpdateView
 from ..mixin import AuthRequiredMixin, ProtectDeletionMixin
 from .forms import LabelForm
 from .models import Labels
@@ -18,28 +17,20 @@ class LabelListView(AuthRequiredMixin, ListView):
     extra_context = {'title': _('Labels')}
 
 
-class LabelCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):
-    template_name = 'forms.html'
+class LabelCreateView(BaseCreateView):
     model = Labels
     form_class = LabelForm
     success_url = reverse_lazy('labels')
     success_message = _('Label successfully created')
-    extra_context = {
-        'title': _('Create label'),
-        'button_text': _('Create'),
-    }
+    title = _('Create label')
 
 
-class LabelUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
-    template_name = 'forms.html'
+class LabelUpdateView(BaseUpdateView):
     model = Labels
     form_class = LabelForm
     success_url = reverse_lazy('labels')
     success_message = _('Label successfully updated')
-    extra_context = {
-        'title': _('Update label'),
-        'button_text': _('Update'),
-    }
+    title = _('Update label')
 
 
 class LabelDeleteView(ProtectDeletionMixin, BaseDeleteView):
@@ -50,10 +41,4 @@ class LabelDeleteView(ProtectDeletionMixin, BaseDeleteView):
     protect_deletion_message = _('It is not possible to delete '
                                  'a label because it is being used')
     related_name = 'labels'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'title': _('Delete label'),
-        })
-        return context
+    title = _('Delete label')
